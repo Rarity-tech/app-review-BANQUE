@@ -10,39 +10,53 @@
     :root {
         --bg-dark: #080808; --bg-card: #1c1c1e; --bg-card-2: #2c2c2e;
         --gold: #d4af37; --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+        --accent: var(--gold); --accent-gradient: var(--gold-gradient);
         --text-main: #ffffff; --text-dim: #8e8e93; --green: #34c759; --red: #ff3b30;
+        --card-bg-1: linear-gradient(135deg, #2c2c2e, #1c1c1e); 
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    [data-theme="blue"] {
+        --gold: #0a84ff; --gold-gradient: linear-gradient(135deg, #0052cc, #4d8bff, #0066ff);
+        --accent: var(--gold); --accent-gradient: var(--gold-gradient);
+        --bg-dark: #000c1a; --bg-card: #00152e; --bg-card-2: #002244;
+    }
+    [data-theme="carbon"] {
+        --gold: #8e8e93; --gold-gradient: linear-gradient(135deg, #434343, #e0e0e0, #5a5a5a, #c4c4c4, #2b2b2b);
+        --accent: var(--gold); --accent-gradient: var(--gold-gradient);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; transition: background-color 0.3s, color 0.3s; }
     body { margin: 0; padding: 0; background: #000; color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
     
-    .mobile-frame { width: 100%; max-width: 420px; height: 100vh; max-height: 950px; background: var(--bg-dark); position: relative; overflow: hidden; box-shadow: 0 0 60px rgba(212, 175, 55, 0.1); border: 1px solid #222; display: flex; flex-direction: column; }
+    .mobile-frame { width: 100%; max-width: 420px; height: 100vh; max-height: 950px; background: var(--bg-dark); position: relative; overflow: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.8); border: 1px solid #222; display: flex; flex-direction: column; }
     @media (min-width: 500px) { .mobile-frame { border-radius: 40px; border: 10px solid #111; }}
 
     .header { padding: 50px 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10; flex-shrink: 0; }
     .header h1 { font-size: 18px; font-weight: 600; margin: 0; }
     .header-right { display: flex; align-items: center; gap: 15px; }
-    .lang-btn { color: var(--gold); font-size: 12px; font-weight: bold; border: 1px solid var(--gold); padding: 4px 8px; border-radius: 8px; cursor: pointer; }
-    .profile-img { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-card-2); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--gold); border: 1px solid var(--gold); }
+    .lang-btn { color: var(--accent); font-size: 12px; font-weight: bold; border: 1px solid var(--accent); padding: 4px 8px; border-radius: 8px; cursor: pointer; }
+    .profile-img { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-card-2); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent); border: 1px solid var(--accent); }
     
     .main-scroll { flex: 1; overflow-y: auto; padding: 0 20px 100px; -webkit-overflow-scrolling: touch; }
     .main-scroll::-webkit-scrollbar { display: none; }
 
     .balance-section { text-align: center; margin: 20px 0; }
     .balance-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; }
-    .balance-amount { font-size: 42px; font-weight: 200; margin: 5px 0; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .balance-currency { font-size: 12px; color: var(--text-dim); }
+    .balance-amount { font-size: 42px; font-weight: 200; margin: 5px 0; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
     .card-wrapper { perspective: 1000px; margin: 20px 0; }
-    .credit-card { width: 100%; height: 200px; border-radius: 20px; padding: 25px; background: var(--bg-card-2); position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer; }
+    .credit-card { width: 100%; height: 200px; border-radius: 20px; padding: 25px; background: var(--card-bg-1); position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer; border: 1px solid #444; }
+    .credit-card.gold { background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); color: #000; }
+    .credit-card.black { background: linear-gradient(135deg, #16222a, #3a6073); color: #fff; }
+    .credit-card.platinum { background: linear-gradient(135deg, #e0e0e0, #ffffff, #a0a0a0); color: #000; }
     .credit-card.flipped { transform: rotateY(180deg); }
     .card-face { position: absolute; width: 100%; height: 100%; top: 0; left: 0; padding: 25px; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: space-between; }
-    .card-back { transform: rotateY(180deg); background: var(--bg-card-2); }
+    .card-back { transform: rotateY(180deg); }
     .card-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #e6e6e6, #999); border-radius: 8px; margin-bottom: 10px; }
     .card-number { font-size: 20px; letter-spacing: 2px; font-weight: 500; z-index: 2; }
     .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; z-index: 2;}
-    .card-issuer { font-style: italic; font-weight: bold; font-size: 18px; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .cvv-box { background: #fff; color: #000; padding: 5px 10px; font-family: monospace; letter-spacing: 2px; border-radius: 4px; }
-    .card-shine { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); pointer-events: none; }
+    .card-issuer { font-style: italic; font-weight: bold; font-size: 18px; }
+    .cvv-box { background: rgba(255,255,255,0.8); color: #000; padding: 5px 10px; font-family: monospace; letter-spacing: 2px; border-radius: 4px; }
+    .card-shine { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); pointer-events: none; }
 
     .actions { display: flex; justify-content: space-around; margin: 20px 0; }
     .action-btn { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
@@ -59,77 +73,80 @@
     .tx-amount { font-weight: 600; font-size: 15px; }
     .tx-amount.credit { color: var(--green); }
 
-    .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: rgba(28,28,30,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid #2a2a2a; display: flex; justify-content: space-around; align-items: center; padding-bottom: 15px; z-index: 100; }
+    .bottom-nav { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border-top: 1px solid #2a2a2a; display: flex; justify-content: space-around; align-items: center; padding-bottom: 15px; z-index: 100; }
     .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-dim); font-size: 10px; cursor: pointer; flex: 1; }
-    .nav-item.active { color: var(--gold); }
+    .nav-item.active { color: var(--accent); }
     .nav-icon { font-size: 22px; }
 
     .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 200; display: none; flex-direction: column; padding-top: 50px; animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
     .screen.active { display: flex; }
     .screen-header { padding: 10px 20px 20px; border-bottom: 1px solid #2a2a2a; display: flex; align-items: center; gap: 15px; }
-    .back-btn { font-size: 28px; cursor: pointer; color: var(--gold); }
+    .back-btn { font-size: 28px; cursor: pointer; color: var(--accent); }
     
     .notif-container { position: absolute; top: 50px; left: 50%; transform: translateX(-50%) translateY(-150px); width: 90%; background: rgba(40, 40, 40, 0.95); backdrop-filter: blur(20px); border: 1px solid #555; border-radius: 16px; padding: 15px; z-index: 999; display: flex; align-items: center; gap: 12px; transition: transform 0.5s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
     .notif-container.show { transform: translateX(-50%) translateY(0); }
-    .notif-icon { width: 40px; height: 40px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #000; font-weight: bold; }
+    .notif-icon { width: 40px; height: 40px; background: var(--accent-gradient); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #000; font-weight: bold; }
     .notif-text p { margin: 0; font-size: 14px; font-weight: 600; }
     .notif-text span { font-size: 12px; color: var(--text-dim); }
 
     .setting-group { padding: 20px; overflow-y: auto; flex: 1; }
     .setting-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; display: block; }
     .setting-input { width: 100%; padding: 15px; background: var(--bg-card); border: 1px solid #444; border-radius: 12px; color: #fff; margin-bottom: 15px; font-size: 16px; box-sizing: border-box; }
-    .setting-btn { width: 100%; padding: 15px; background: var(--gold-gradient); color: #000; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; margin-bottom: 10px; }
+    .setting-btn { width: 100%; padding: 15px; background: var(--accent-gradient); color: #000; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; margin-bottom: 10px; }
+    .setting-btn:active { transform: scale(0.98); }
     .hidden-trigger { color: var(--text-dim); font-size: 12px; text-align: center; padding: 20px; cursor: pointer; }
-    .file-drop { width: 100%; height: 120px; border: 2px dashed #555; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); margin-bottom: 15px; text-align: center; padding: 10px; font-size: 14px; }
-    
     .select-input { width: 100%; padding: 15px; background: var(--bg-card); border: 1px solid #444; border-radius: 12px; color: #fff; margin-bottom: 15px; font-size: 16px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill="%23d4af37" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); background-repeat: no-repeat; background-position: right 10px center; }
 
     .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
     .msg-bubble { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.4; }
     .msg-received { background: var(--bg-card-2); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .msg-sent { background: var(--gold); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .msg-sent { background: var(--accent-gradient); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
     .chat-input-bar { padding: 15px; display: flex; gap: 10px; border-top: 1px solid #333; }
     
-    .success-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; display: none; align-items: center; justify-content: center; }
-    .success-box { background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--green); }
-    .success-icon { font-size: 40px; color: var(--green); margin-bottom: 10px; }
+    .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 300; display: none; align-items: center; justify-content: center; flex-direction: column; }
+    .modal-box { background: var(--bg-card); padding: 30px; border-radius: 20px; text-align: center; width: 90%; max-width: 350px; border: 1px solid #333; }
+    .pin-dots { display: flex; gap: 15px; justify-content: center; margin: 20px 0; }
+    .pin-dot { width: 15px; height: 15px; border-radius: 50%; background: #333; }
+    .pin-dot.filled { background: var(--accent); }
+    .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+    .pin-key { background: var(--bg-card-2); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; cursor: pointer; border: 1px solid #444; margin: 0 auto; }
+    .spinner { border: 3px solid rgba(255, 255, 255, 0.1); border-top: 3px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .success-check { font-size: 60px; color: var(--green); margin-bottom: 10px; }
 </style>
 </head>
 <body>
 
-<div class="mobile-frame">
-    <!-- Header -->
+<div class="mobile-frame" id="app-root">
     <div class="header">
         <h1 id="header-name">Premium Banking</h1>
         <div class="header-right">
             <div class="lang-btn" onclick="toggleLanguage()" id="lang-btn">EN</div>
-            <div class="profile-img" id="profile-initial" onclick="switchTab('profile')">A</div>
+            <div class="profile-img" id="profile-initial" onclick="openScreen('profile-screen')">A</div>
         </div>
     </div>
 
-    <!-- Main Screen -->
     <div class="main-scroll" id="main-screen">
         <div class="balance-section">
             <div class="balance-label" id="lbl-balance">Solde Total</div>
             <div class="balance-amount" id="balance-display">0,00 €</div>
-            <div class="balance-currency" id="lbl-account">Compte N° **** 4829</div>
         </div>
 
         <div class="card-wrapper">
-            <div class="credit-card" id="credit-card" onclick="flipCard()">
+            <div class="credit-card" id="credit-card" onclick="flipCard()" style="background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c); color: #000;">
                 <div class="card-face">
                     <div><div class="card-chip"></div><div class="card-shine"></div></div>
                     <div class="card-bottom">
                         <div class="card-number" id="card-num-display">**** **** **** 8888</div>
-                        <div class="card-issuer">SWISS PREMIUM</div>
+                        <div class="card-issuer" id="card-issuer">SWISS PREMIUM</div>
                     </div>
                 </div>
                 <div class="card-face card-back">
                     <div class="card-shine"></div>
                     <div style="height: 40px; background: #000; margin: 25px -25px 0;"></div>
                     <div style="display: flex; justify-content: flex-end; align-items: center; gap: 10px;">
-                        <span style="font-size:12px; color:var(--text-dim);">CVV</span>
+                        <span style="font-size:12px; color:#aaa;">CVV</span>
                         <div class="cvv-box" id="cvv-display">007</div>
                     </div>
                 </div>
@@ -143,20 +160,18 @@
             <div class="action-btn" onclick="openScreen('pay-screen')"><div class="action-icon">⊞</div><span class="action-text" id="lbl-pay">Payer</span></div>
         </div>
 
-        <div class="section-title" id="lbl-activity">Activité du compte</div>
+        <div class="section-title" id="lbl-activity">Activité</div>
         <div class="tx-list" id="tx-list"></div>
         <div class="hidden-trigger" onclick="openScreen('help-screen')" id="lbl-help">Aide & Support</div>
     </div>
 
-    <!-- Bottom Nav -->
     <div class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('home')"><div class="nav-icon">⌂</div><span id="nav-home">Accueil</span></div>
-        <div class="nav-item" onclick="switchTab('cards')"><div class="nav-icon">⬚</div><span id="nav-cards">Cartes</span></div>
+        <div class="nav-item active" onclick="closeAllScreens()"><div class="nav-icon">⌂</div><span id="nav-home">Accueil</span></div>
+        <div class="nav-item" onclick="openScreen('cards-screen')"><div class="nav-icon">⬚</div><span id="nav-cards">Cartes</span></div>
         <div class="nav-item" onclick="openScreen('chat-screen')"><div class="nav-icon">✉</div><span id="nav-msg">Messages</span></div>
-        <div class="nav-item" onclick="switchTab('profile')"><div class="nav-icon">⚛</div><span id="nav-profile">Profil</span></div>
+        <div class="nav-item" onclick="openScreen('profile-screen')"><div class="nav-icon">⚛</div><span id="nav-profile">Profil</span></div>
     </div>
 
-    <!-- In-App Notification -->
     <div class="notif-container" id="notif-container" onclick="hideNotif()">
         <div class="notif-icon">€</div>
         <div class="notif-text">
@@ -165,427 +180,525 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="success-modal" id="success-modal" onclick="closeSuccess()">
-        <div class="success-box">
-            <div class="success-icon">✓</div>
-            <h3 id="success-title">Transaction validée</h3>
-            <p style="color:var(--text-dim); font-size:14px;" id="success-text">Votre opération a bien été exécutée.</p>
+    <!-- PIN Modal -->
+    <div class="modal-overlay" id="pin-modal">
+        <div class="modal-box">
+            <h3 id="pin-title">Entrez votre code secret</h3>
+            <div class="pin-dots" id="pin-dots">
+                <div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div><div class="pin-dot"></div>
+            </div>
+            <div id="pin-error" style="color:var(--red); font-size:12px; height:15px;"></div>
+            <div class="pin-pad">
+                <div class="pin-key" onclick="typePin('1')">1</div><div class="pin-key" onclick="typePin('2')">2</div><div class="pin-key" onclick="typePin('3')">3</div>
+                <div class="pin-key" onclick="typePin('4')">4</div><div class="pin-key" onclick="typePin('5')">5</div><div class="pin-key" onclick="typePin('6')">6</div>
+                <div class="pin-key" onclick="typePin('7')">7</div><div class="pin-key" onclick="typePin('8')">8</div><div class="pin-key" onclick="typePin('9')">9</div>
+                <div class="pin-key" onclick="cancelPin()" style="background:transparent; border:none; color:var(--text-dim); font-size:12px;">Annuler</div>
+                <div class="pin-key" onclick="typePin('0')">0</div>
+                <div class="pin-key" onclick="typePin('del')" style="background:transparent; border:none; font-size:20px;">⌫</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading & Success Modal -->
+    <div class="modal-overlay" id="process-modal" style="display:none;">
+        <div class="modal-box" id="process-box">
+            <div id="process-content"></div>
         </div>
     </div>
 
     <!-- Screens -->
-    <!-- Transfer Screen -->
     <div class="screen" id="transfer-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('transfer-screen')">‹</div><h2 id="lbl-send-title">Nouveau Virement</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('transfer-screen')">‹</div><h2>Nouveau Virement</h2></div>
         <div class="setting-group">
-            <label class="setting-label" id="lbl-recipient">Bénéficiaire (IBAN ou Nom)</label>
+            <label class="setting-label">Bénéficiaire (IBAN)</label>
             <input type="text" id="transfer-recipient" class="setting-input" placeholder="CH93 0076 2011 6238 5295 7">
-            <label class="setting-label" id="lbl-amount">Montant</label>
+            <label class="setting-label">Montant</label>
             <input type="number" id="transfer-amount" class="setting-input" placeholder="0.00">
-            <label class="setting-label" id="lbl-reason">Motif</label>
-            <input type="text" id="transfer-reason" class="setting-input" placeholder="Investissement immobilier">
-            <label class="setting-label" id="lbl-fee">Frais de transaction</label>
+            <label class="setting-label">Motif</label>
+            <input type="text" id="transfer-reason" class="setting-input" placeholder="Investissement">
+            <label class="setting-label">Frais</label>
             <select id="transfer-fee" class="select-input">
-                <option value="0">Standard (Gratuit - 3 jours)</option>
+                <option value="0">Standard (Gratuit - 3j)</option>
                 <option value="15">Express (15€ - 24h)</option>
                 <option value="50">Immédiat SWIFT (50€)</option>
             </select>
-            <button class="setting-btn" onclick="executeTransfer()" id="lbl-confirm-transfer">Confirmer le virement</button>
+            <button class="setting-btn" onclick="initiateAction('transfer')">Confirmer</button>
         </div>
     </div>
 
-    <!-- Pay Screen -->
     <div class="screen" id="pay-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('pay-screen')">‹</div><h2 id="lbl-pay-title">Payer / Acheter</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('pay-screen')">‹</div><h2>Payer / Acheter</h2></div>
         <div class="setting-group">
-            <label class="setting-label" id="lbl-merchant">Commerçant</label>
+            <label class="setting-label">Commerçant</label>
             <select id="pay-merchant" class="select-input">
-                <option value="Rolex">Rolex</option>
-                <option value="Ferrari">Ferrari</option>
-                <option value="Chanel">Chanel</option>
-                <option value="Patek Philippe">Patek Philippe</option>
-                <option value="Sotheby's">Sotheby's</option>
-                <option value="Custom">Autre (Saisir)</option>
+                <option value="Rolex - Montre Daytona">Rolex - Montre Daytona</option>
+                <option value="Ferrari - 812 Competizione">Ferrari - 812 Competizione</option>
+                <option value="Chanel - Sac Birkin">Chanel - Sac Birkin</option>
+                <option value="Patek Philippe - Nautilus">Patek Philippe - Nautilus</option>
+                <option value="NetJets - Location Jet Privé">NetJets - Location Jet Privé</option>
+                <option value="Sotheby's - Œuvre d'Art">Sotheby's - Œuvre d'Art</option>
+                <option value="Christie's - Vente Aux Enchères">Christie's - Vente Aux Enchères</option>
+                <option value="Hôtel Burj Al Arab - Suite Royale">Hôtel Burj Al Arab - Suite Royale</option>
+                <option value="Dior - Haute Couture">Dior - Haute Couture</option>
+                <option value="Bugatti - Chiron Super Sport">Bugatti - Chiron Super Sport</option>
+                <option value="Prada - Collection Hiver">Prada - Collection Hiver</option>
+                <option value="Yacht Club de Monaco - Cotisation">Yacht Club de Monaco - Cotisation</option>
+                <option value="Tiffany & Co - Diamant">Tiffany & Co - Diamant</option>
+                <option value="Four Seasons - Séjour Bora Bora">Four Seasons - Séjour Bora Bora</option>
+                <option value="Le Jules Verne - Dîner">Le Jules Verne - Dîner</option>
+                <option value="Louis Vuitton - Malles Sur-Mesure">Louis Vuitton - Malles Sur-Mesure</option>
+                <option value="Aston Martin - DBS Superleggera">Aston Martin - DBS Superleggera</option>
+                <option value="Caviar Petrossian">Caviar Petrossian</option>
+                <option value="Custom">Personnalisé...</option>
             </select>
             <input type="text" id="pay-merchant-custom" class="setting-input" placeholder="Nom du commerçant" style="display:none; margin-top:-10px;">
-            <label class="setting-label" id="lbl-pay-amount">Montant de l'achat</label>
+            <label class="setting-label">Montant</label>
             <input type="number" id="pay-amount" class="setting-input" placeholder="0.00">
-            <button class="setting-btn" onclick="executePayment()" id="lbl-confirm-pay">Payer maintenant</button>
+            <button class="setting-btn" onclick="initiateAction('pay')">Payer</button>
         </div>
     </div>
 
-    <!-- Receive Screen -->
     <div class="screen" id="receive-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('receive-screen')">‹</div><h2 id="lbl-receive-title">Mes Coordonnées Bancaires</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('receive-screen')">‹</div><h2>Recevoir</h2></div>
         <div class="setting-group">
             <label class="setting-label">IBAN</label>
             <div class="setting-input" style="cursor:pointer;" onclick="copyToClipboard(this.innerText)">CH93 0076 2011 6238 5295 7</div>
-            <label class="setting-label">BIC / SWIFT</label>
+            <label class="setting-label">BIC</label>
             <div class="setting-input" style="cursor:pointer;" onclick="copyToClipboard(this.innerText)">SWPSCHZZ</div>
-            <label class="setting-label">Titulaire</label>
-            <div class="setting-input" id="receive-owner">Alexandre Durand</div>
-            <p style="font-size:12px; color:var(--text-dim); text-align:center;">Cliquez sur un élément pour le copier</p>
         </div>
     </div>
 
-    <!-- Cards Tab -->
     <div class="screen" id="cards-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('cards-screen')">‹</div><h2 id="lbl-cards-title">Mes Cartes</h2></div>
-        <div class="setting-group">
-            <div class="credit-card" style="cursor:default; margin-bottom:20px;">
-                <div class="card-face">
-                    <div><div class="card-chip"></div></div>
-                    <div class="card-bottom">
-                        <div class="card-number" id="card-num-display-2">**** **** **** 8888</div>
-                        <div class="card-issuer">SWISS PREMIUM</div>
-                    </div>
-                </div>
-            </div>
-            <label class="setting-label">Statut de la carte</label>
-            <div class="setting-input" style="color:var(--green);">● Active</div>
-            <label class="setting-label">Plafond de paiement</label>
-            <div class="setting-input">1 000 000 € / mois</div>
-            <button class="setting-btn" style="background:#333; color:#fff;" onclick="toggleFreeze()" id="lbl-freeze">Faire opposition</button>
-        </div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('cards-screen')">‹</div><h2>Mes Cartes</h2></div>
+        <div class="setting-group" id="cards-container"></div>
     </div>
 
-    <!-- Profile Tab -->
     <div class="screen" id="profile-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('profile-screen')">‹</div><h2 id="lbl-profile-title">Mon Profil</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('profile-screen')">‹</div><h2>Profil</h2></div>
         <div class="setting-group">
-            <div style="text-align:center; margin-bottom:20px;">
+            <div style="text-align:center; margin-bottom:30px;">
                 <div class="profile-img" style="width:80px; height:80px; font-size:32px; margin:0 auto 10px;" id="profile-initial-big">A</div>
                 <h3 id="profile-fullname">Alexandre Durand</h3>
-                <p style="color:var(--gold); font-size:12px;">Client Private Banking · Niveau Diamond</p>
+                <p style="color:var(--accent); font-size:12px;">Client Private Banking · Niveau Diamond</p>
             </div>
-            <label class="setting-label">Email</label>
             <div class="setting-input">a.durand@privatemail.ch</div>
-            <label class="setting-label">Téléphone</label>
             <div class="setting-input">+41 79 123 45 67</div>
-            <label class="setting-label">Adresse fiscale</label>
             <div class="setting-input">Rue du Rhône 12, 1204 Genève</div>
-            <div class="hidden-trigger" onclick="openScreen('help-screen')">Paramètres & Support</div>
         </div>
     </div>
 
-    <!-- Help & Admin -->
     <div class="screen" id="help-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('help-screen')">‹</div><h2 id="lbl-help-title">Aide & Support</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('help-screen')">‹</div><h2>Aide</h2></div>
         <div class="setting-group">
-            <p style="color: var(--text-dim); font-size: 14px;" id="lbl-help-text">Bienvenue dans l'assistance Swiss Premium.</p>
-            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 15px;">
-                <div class="setting-input" style="cursor: pointer; text-align: center;" onclick="openScreen('admin-screen')" id="lbl-backoffice">Mode Modification (Back-Office)</div>
-            </div>
+            <div class="setting-input" style="cursor: pointer; text-align: center;" onclick="openScreen('admin-screen')">Mode Modification (Back-Office)</div>
         </div>
     </div>
 
-    <!-- Admin Screen (Le Back-Office caché) -->
+    <!-- Admin Back-Office -->
     <div class="screen" id="admin-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('admin-screen')">‹</div><h2>Back-Office (Prank)</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('admin-screen')">‹</div><h2>Back-Office</h2></div>
         <div class="setting-group">
-            <h3 style="color:var(--gold); margin-top:0;">1. Identité & Solde</h3>
-            <input type="text" id="admin-firstname" class="setting-input" placeholder="Prénom">
-            <input type="text" id="admin-lastname" class="setting-input" placeholder="Nom">
-            <input type="number" id="admin-balance" class="setting-input" placeholder="Solde désiré">
-            <input type="text" id="admin-cardnum" class="setting-input" placeholder="4 derniers chiffres carte">
-            <input type="text" id="admin-cvv" class="setting-input" placeholder="CVV">
-            <button class="setting-btn" onclick="saveAdminChanges()" id="lbl-apply">Appliquer les modifications</button>
-
-            <button class="setting-btn" style="background:#333; color:#fff;" onclick="injectBalance()" id="lbl-inject-balance">Remplir le solde par transactions</button>
-
-            <h3 style="color:var(--gold); margin-top:20px;">2. Planificateur de Notifications</h3>
-            <label class="setting-label" id="lbl-sched-sender">Expéditeur (qui envoie l'argent ?)</label>
-            <select id="sched-sender" class="select-input">
-                <option value="Apple Inc.">Apple Inc.</option>
-                <option value="Tesla Dividends">Tesla Dividends</option>
-                <option value="Goldman Sachs">Goldman Sachs</option>
-                <option value="Binance Crypto">Binance Crypto</option>
-                <option value="Notaire Genève (Héritage)">Notaire (Héritage)</option>
-                <option value="Real Estate Dubaï">Real Estate Dubaï</option>
-                <option value="Custom">Personnalisé...</option>
-            </select>
-            <input type="text" id="sched-sender-custom" class="setting-input" placeholder="Nom de l'expéditeur" style="display:none; margin-top:-10px;">
             
-            <label class="setting-label" id="lbl-sched-type">Type de transaction</label>
-            <select id="sched-type" class="select-input">
-                <option value="credit" id="opt-credit">Virement reçu (Crédit)</option>
-                <option value="debit" id="opt-debit">Dépense / Achat (Débit)</option>
-            </select>
+            <div style="background:var(--bg-card); padding:15px; border-radius:12px; margin-bottom:20px;">
+                <h3 style="margin:0 0 10px; color:var(--accent);">1. Identité</h3>
+                <input type="text" id="admin-firstname" class="setting-input" placeholder="Prénom">
+                <input type="text" id="admin-lastname" class="setting-input" placeholder="Nom">
+            </div>
 
-            <label class="setting-label" id="lbl-sched-amount">Montant</label>
-            <input type="number" id="sched-amount" class="setting-input" placeholder="Ex: 1500000">
+            <div style="background:var(--bg-card); padding:15px; border-radius:12px; margin-bottom:20px;">
+                <h3 style="margin:0 0 10px; color:var(--accent);">2. Solde & Simulation de Virement</h3>
+                <input type="number" id="admin-balance" class="setting-input" placeholder="Solde désiré exact">
+                <label class="setting-label">Stratégie d'arrivée de l'argent</label>
+                <select id="inject-duration" class="select-input">
+                    <option value="instant">Instantané (2s entre chaque)</option>
+                    <option value="1h">Étalé sur 1 heure</option>
+                    <option value="1d">Étalé sur 1 journée</option>
+                    <option value="1w">Étalé sur 1 semaine</option>
+                </select>
+                <button class="setting-btn" style="background:#333; color:#fff;" onclick="saveAdminChanges()" id="btn-save-admin">Sauvegarder le solde</button>
+                <button class="setting-btn" onclick="startBalanceSimulation()" id="btn-inject">Simuler des virements vers ce solde</button>
+                <p id="inject-status" style="font-size:12px; color:var(--green); text-align:center; margin-top:5px;"></p>
+            </div>
+
+            <div style="background:var(--bg-card); padding:15px; border-radius:12px; margin-bottom:20px;">
+                <h3 style="margin:0 0 10px; color:var(--accent);">3. Ajouter une Carte</h3>
+                <select id="new-card-type" class="select-input">
+                    <option value="Visa Infinite">Visa Infinite</option>
+                    <option value="Mastercard Black">Mastercard Black</option>
+                    <option value="Amex Platinum">Amex Platinum</option>
+                    <option value="Swiss Premium Gold">Swiss Premium Gold</option>
+                </select>
+                <select id="new-card-color" class="select-input">
+                    <option value="gold">Or</option>
+                    <option value="black">Carbone Noir</option>
+                    <option value="platinum">Platine</option>
+                </select>
+                <input type="text" id="new-card-last4" class="setting-input" placeholder="4 derniers chiffres" maxlength="4">
+                <input type="text" id="new-card-cvv" class="setting-input" placeholder="CVV" maxlength="3">
+                <button class="setting-btn" style="background:#333; color:#fff;" onclick="addCard()">Ajouter la carte</button>
+            </div>
+
+            <div style="background:var(--bg-card); padding:15px; border-radius:12px; margin-bottom:20px;">
+                <h3 style="margin:0 0 10px; color:var(--accent);">4. Thème de l'App</h3>
+                <select id="theme-select" class="select-input" onchange="changeTheme(this.value)">
+                    <option value="dark">Dark Gold (Défaut)</option>
+                    <option value="blue">Midnight Blue</option>
+                    <option value="carbon">Carbon Black</option>
+                </select>
+            </div>
+
+            <div style="background:var(--bg-card); padding:15px; border-radius:12px; margin-bottom:20px;">
+                <h3 style="margin:0 0 10px; color:var(--accent);">5. Planifier une Notification</h3>
+                <input type="text" id="sched-sender" class="setting-input" placeholder="Expéditeur (ex: Elon Musk)">
+                <select id="sched-type" class="select-input">
+                    <option value="credit">Crédit (Recevoir)</option>
+                    <option value="debit">Débit (Payer)</option>
+                </select>
+                <input type="number" id="sched-amount" class="setting-input" placeholder="Montant">
+                <select id="sched-delay" class="select-input">
+                    <option value="5">Dans 5 secondes</option>
+                    <option value="300">Dans 5 minutes</option>
+                    <option value="3600">Dans 1 heure</option>
+                </select>
+                <button class="setting-btn" onclick="scheduleNotification()">Programmer</button>
+                <button class="setting-btn" style="background:#333; color:#fff;" onclick="enableSystemNotifications()">Activer Notifs Système</button>
+            </div>
             
-            <label class="setting-label" id="lbl-sched-delay">Délai d'envoi</label>
-            <select id="sched-delay" class="select-input">
-                <option value="5">5 secondes (Test)</option>
-                <option value="60">1 minute</option>
-                <option value="300">5 minutes</option>
-                <option value="1800">30 minutes</option>
-                <option value="3600">1 heure</option>
-                <option value="43200">12 heures</option>
-            </select>
-
-            <button class="setting-btn" style="background: linear-gradient(135deg, #b38728, #fbf5b7); color:black;" onclick="scheduleNotification()" id="lbl-sched-btn">Programmer la notification</button>
-
-            <h3 style="color:var(--gold); margin-top:20px;">3. Avancé</h3>
-            <button class="setting-btn" style="background: #333; color: #fff;" onclick="enableSystemNotifications()" id="lbl-enable-notif">⚡ Activer Notifications Système</button>
-            <div class="file-drop" id="file-drop-zone">Glisser un fichier .txt ici<br>(Format: Montant|Libellé|Type|Delai)</div>
-            <input type="file" id="file-input" accept=".txt" style="display:none">
-            <button class="setting-btn" style="background: #222; color: var(--red); border: 1px solid var(--red);" onclick="resetApp()" id="lbl-reset">Réinitialiser l'app</button>
+            <button class="setting-btn" style="background:#222; color:var(--red); border:1px solid var(--red);" onclick="resetApp()">Réinitialiser</button>
         </div>
     </div>
 
-    <!-- Chat Screen -->
     <div class="screen" id="chat-screen">
-        <div class="screen-header"><div class="back-btn" onclick="closeScreen('chat-screen')">‹</div><h2 id="lbl-advisor-name">Sophia - Conseillère</h2></div>
+        <div class="screen-header"><div class="back-btn" onclick="closeScreen('chat-screen')">‹</div><h2>Sophia - Conseillère</h2></div>
         <div class="chat-area" id="chat-area">
-            <div class="msg-bubble msg-received" id="chat-welcome">Bonjour, je suis Sophia. Comment puis-je vous aider ?</div>
+            <div class="msg-bubble msg-received">Bonjour, je suis Sophia. Comment puis-je vous aider ?</div>
         </div>
         <div class="chat-input-bar">
-            <input type="text" class="setting-input" style="margin: 0;" id="chat-input" placeholder="Écrire un message...">
+            <input type="text" class="setting-input" style="margin: 0;" id="chat-input" placeholder="Message...">
             <button class="setting-btn" style="width: auto; padding: 15px; margin:0;" onclick="sendChat()">↑</button>
         </div>
     </div>
 </div>
 
 <script>
-    const i18n = {
-        fr: { balanceLabel: "Solde Total", send: "Virement", receive: "Recevoir", advisor: "Conseiller", pay: "Payer", activity: "Activité du compte", help: "Aide & Support", home: "Accueil", cards: "Cartes", messages: "Messages", profile: "Profil", helpTitle: "Aide & Support", helpText: "Bienvenue dans l'assistance Swiss Premium.", backoffice: "Mode Modification (Back-Office)", apply: "Appliquer", injectBalance: "Remplir par transactions", schedBtn: "Programmer", enableNotif: "⚡ Activer Notifications Système", reset: "Réinitialiser", advisorName: "Sophia - Conseillère", chatWelcome: "Bonjour, je suis Sophia. Comment puis-je vous aider ?", notifTitle: "Nouveau virement", langBtn: "EN", successTransfer: "Virement envoyé", successPay: "Paiement accepté", freeze: "Faire opposition", optCredit: "Virement reçu", optDebit: "Dépense" },
-        en: { balanceLabel: "Total Balance", send: "Transfer", receive: "Receive", advisor: "Advisor", pay: "Pay", activity: "Account Activity", help: "Help & Support", home: "Home", cards: "Cards", messages: "Messages", profile: "Profile", helpTitle: "Help & Support", helpText: "Welcome to Swiss Premium support.", backoffice: "Edit Mode (Back-Office)", apply: "Apply", injectBalance: "Fill via transactions", schedBtn: "Schedule", enableNotif: "⚡ Enable System Notifications", reset: "Reset", advisorName: "Sophia - Advisor", chatWelcome: "Hello, I'm Sophia. How can I help you?", notifTitle: "New transfer", langBtn: "FR", successTransfer: "Transfer sent", successPay: "Payment accepted", freeze: "Freeze card", optCredit: "Incoming transfer", optDebit: "Expense" }
-    };
+    // Base de données avec PRIX RÉALISTES
+    const incomeSources = [
+        { label: "Virement de M. Elon Musk", min: 1000000, max: 10000000 },
+        { label: "Dividendes Apple Inc. Q3", min: 500000, max: 2500000 },
+        { label: "Vente de Cryptomonnaies (BTC)", min: 200000, max: 5000000 },
+        { label: "Goldman Sachs - Bonus Annuel", min: 500000, max: 3000000 },
+        { label: "Salaire Direction Générale", min: 150000, max: 400000 },
+        { label: "Remboursement d'Impôts Suisse", min: 100000, max: 800000 },
+        { label: "Loyer - Villa de Beverly Hills", min: 50000, max: 150000 },
+        { label: "Vente de Tableau - Sotheby's", min: 2000000, max: 10000000 },
+        { label: "Notaire - Succession Familiale", min: 5000000, max: 20000000 },
+        { label: "Dividendes Tesla Motors", min: 200000, max: 1500000 },
+        { label: "Vente de Startup - M&A", min: 5000000, max: 50000000 },
+        { label: "Binance - Cash Out", min: 100000, max: 1000000 },
+        { label: "Loyers - Portefeuille Immobilier Paris", min: 20000, max: 80000 },
+        { label: "Revenus Royalties - Brevet Tech", min: 50000, max: 300000 },
+        { label: "Virement de Mark Zuckerberg", min: 1000000, max: 5000000 }
+    ];
+
+    const luxuryBrands = [
+        { label: "Rolex - Montre Daytona", min: 30000, max: 150000 },
+        { label: "Ferrari - 812 Competizione", min: 400000, max: 700000 },
+        { label: "Chanel - Sac Birkin", min: 15000, max: 80000 },
+        { label: "Patek Philippe - Nautilus", min: 100000, max: 500000 },
+        { label: "NetJets - Location Jet Privé", min: 50000, max: 200000 },
+        { label: "Sotheby's - Œuvre d'Art", min: 500000, max: 5000000 },
+        { label: "Christie's - Vente Aux Enchères", min: 250000, max: 2500000 },
+        { label: "Hôtel Burj Al Arab - Suite Royale", min: 20000, max: 100000 },
+        { label: "Dior - Haute Couture", min: 10000, max: 50000 },
+        { label: "Bugatti - Chiron Super Sport", min: 3000000, max: 5500000 },
+        { label: "Prada - Collection Hiver", min: 5000, max: 25000 },
+        { label: "Yacht Club de Monaco - Cotisation", min: 10000, max: 50000 },
+        { label: "Tiffany & Co - Diamant", min: 100000, max: 1000000 },
+        { label: "Four Seasons - Séjour Bora Bora", min: 30000, max: 150000 },
+        { label: "Le Jules Verne - Dîner", min: 1000, max: 5000 },
+        { label: "Louis Vuitton - Malles Sur-Mesure", min: 20000, max: 100000 },
+        { label: "Aston Martin - DBS Superleggera", min: 300000, max: 500000 },
+        { label: "Caviar Petrossian", min: 1000, max: 10000 },
+        { label: "Achat Yacht - Sunseeker", min: 5000000, max: 15000000 },
+        { label: "Villa - Saint-Tropez (Acompte)", min: 2000000, max: 8000000 }
+    ];
 
     let db = {
-        lang: "fr",
-        user: { firstname: "Alexandre", lastname: "Durand", balance: 15420550.50, cardNum: "8888", cvv: "007", accNum: "4829" },
-        transactions: [], scenarios: []
+        lang: "fr", theme: "dark",
+        user: { firstname: "Alexandre", lastname: "Durand", balance: 15420550.50 },
+        cards: [{ type: "Swiss Premium Gold", last4: "8888", cvv: "007", color: "gold" }],
+        activeCard: 0,
+        transactions: []
     };
 
-    const luxuryBrands = ["Rolex", "Chanel", "Ferrari", "Patek Philippe", "LVMH", "Sotheby's", "Christie's", "Dior", "Bugatti", "Prada"];
-    const incomeSources = ["Warren Buffett", "Apple Inc.", "Crypto-BTC", "Goldman Sachs", "Tax Refund", "Real Estate Dubaï"];
-    
     function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
     function formatMoney(amount) {
         const locale = db.lang === 'fr' ? 'fr-FR' : 'en-US';
         const currency = db.lang === 'fr' ? 'EUR' : 'USD';
-        return new Intl.NumberFormat(locale, { style: 'currency', currency: currency, minimumFractionDigits: 2 }).format(amount);
+        return new Intl.NumberFormat(locale, { style: 'currency', currency, minimumFractionDigits: 2 }).format(amount);
     }
 
     function initApp() {
-        if(localStorage.getItem('prankBankDB_V3')) {
-            db = JSON.parse(localStorage.getItem('prankBankDB_V3'));
+        if(localStorage.getItem('prankBankV4_1')) {
+            db = JSON.parse(localStorage.getItem('prankBankV4_1'));
         } else {
-            for(let i=0; i<5; i++) generateRandomTx(true);
+            for(let i=0; i<8; i++) generateRandomTx(true);
             saveDB();
         }
+        applyTheme(db.theme);
         applyLanguage();
         renderUI();
+        renderCards();
     }
 
-    function saveDB() { localStorage.setItem('prankBankDB_V3', JSON.stringify(db)); }
+    function saveDB() { localStorage.setItem('prankBankV4_1', JSON.stringify(db)); }
+
+    function applyTheme(theme) {
+        db.theme = theme;
+        document.getElementById('app-root').setAttribute('data-theme', theme);
+        document.getElementById('theme-select').value = theme;
+        saveDB();
+    }
+    function changeTheme(t) { applyTheme(t); }
 
     function applyLanguage() {
-        const t = i18n[db.lang];
-        document.getElementById('lbl-balance').innerText = t.balanceLabel;
-        document.getElementById('lbl-send').innerText = t.send;
-        document.getElementById('lbl-receive').innerText = t.receive;
-        document.getElementById('lbl-advisor').innerText = t.advisor;
-        document.getElementById('lbl-pay').innerText = t.pay;
-        document.getElementById('lbl-activity').innerText = t.activity;
-        document.getElementById('lbl-help').innerText = t.help;
-        document.getElementById('nav-home').innerText = t.home;
-        document.getElementById('nav-cards').innerText = t.cards;
-        document.getElementById('nav-msg').innerText = t.messages;
-        document.getElementById('nav-profile').innerText = t.profile;
-        document.getElementById('lbl-help-title').innerText = t.helpTitle;
-        document.getElementById('lbl-help-text').innerText = t.helpText;
-        document.getElementById('lbl-backoffice').innerText = t.backoffice;
-        document.getElementById('lbl-apply').innerText = t.apply;
-        document.getElementById('lbl-inject-balance').innerText = t.injectBalance;
-        document.getElementById('lbl-sched-btn').innerText = t.schedBtn;
-        document.getElementById('lbl-enable-notif').innerText = t.enableNotif;
-        document.getElementById('lbl-reset').innerText = t.reset;
-        document.getElementById('lbl-advisor-name').innerText = t.advisorName;
-        document.getElementById('chat-welcome').innerText = t.chatWelcome;
-        document.getElementById('lang-btn').innerText = t.langBtn;
-        document.getElementById('lbl-freeze').innerText = t.freeze;
-        document.getElementById('opt-credit').innerText = t.optCredit;
-        document.getElementById('opt-debit').innerText = t.optDebit;
+        document.getElementById('lang-btn').innerText = db.lang === 'fr' ? 'EN' : 'FR';
+        document.getElementById('header-name').innerText = (db.lang === 'fr' ? "Bonjour, " : "Hello, ") + db.user.firstname;
     }
-
     function toggleLanguage() { db.lang = db.lang === 'fr' ? 'en' : 'fr'; saveDB(); applyLanguage(); renderUI(); }
 
     function renderUI() {
-        document.getElementById('header-name').innerText = (db.lang === 'fr' ? "Bonjour, " : "Hello, ") + db.user.firstname;
         document.getElementById('profile-initial').innerText = db.user.firstname.charAt(0).toUpperCase();
         document.getElementById('profile-initial-big').innerText = db.user.firstname.charAt(0).toUpperCase();
         document.getElementById('profile-fullname').innerText = db.user.firstname + " " + db.user.lastname;
         document.getElementById('balance-display').innerText = formatMoney(db.user.balance);
-        document.getElementById('card-num-display').innerText = "**** **** **** " + db.user.cardNum;
-        document.getElementById('card-num-display-2').innerText = "**** **** **** " + db.user.cardNum;
-        document.getElementById('cvv-display').innerText = db.user.cvv;
+
+        const card = db.cards[db.activeCard];
+        const cardEl = document.getElementById('credit-card');
+        cardEl.className = `credit-card ${card.color}`;
+        document.getElementById('card-num-display').innerText = "**** **** **** " + card.last4;
+        document.getElementById('card-issuer').innerText = card.type.toUpperCase();
+        document.getElementById('cvv-display').innerText = card.cvv;
 
         const txList = document.getElementById('tx-list');
         txList.innerHTML = '';
         db.transactions.slice(-15).reverse().forEach(tx => {
             const isCredit = tx.type === 'credit';
-            const color = isCredit ? 'var(--green)' : 'var(--red)';
-            const bgColor = isCredit ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)';
-            const sign = isCredit ? '+' : '-';
-            
             txList.innerHTML += `
                 <div class="tx-item">
                     <div class="tx-info">
-                        <div class="tx-icon" style="background: ${bgColor}; color: ${color};">${isCredit ? '↓' : '↑'}</div>
+                        <div class="tx-icon" style="background: ${isCredit ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255, 59, 48, 0.1)'}; color: ${isCredit ? 'var(--green)' : 'var(--red)'};">${isCredit ? '↓' : '↑'}</div>
                         <div class="tx-details">
                             <p>${tx.label}</p>
                             <span>${tx.date}</span>
                         </div>
                     </div>
                     <div class="tx-amount" style="color: ${isCredit ? 'var(--green)' : '#fff'};">
-                        ${sign} ${formatMoney(tx.amount)}
+                        ${isCredit ? '+' : '-'} ${formatMoney(tx.amount)}
                     </div>
                 </div>
             `;
         });
     }
 
-    function flipCard() { document.getElementById('credit-card').classList.toggle('flipped'); if(navigator.vibrate) navigator.vibrate(30); }
-
-    function switchTab(tab) {
-        // Ferme tout
-        closeScreen('cards-screen'); closeScreen('profile-screen');
-        // Ouvre ce qu'il faut
-        if(tab === 'cards') openScreen('cards-screen');
-        if(tab === 'profile') openScreen('profile-screen');
+    function renderCards() {
+        const container = document.getElementById('cards-container');
+        container.innerHTML = '';
+        db.cards.forEach((c, index) => {
+            container.innerHTML += `
+                <div class="credit-card ${c.color}" style="cursor:pointer; margin-bottom:15px;" onclick="setActiveCard(${index})">
+                    <div class="card-face">
+                        <div><div class="card-chip"></div></div>
+                        <div class="card-bottom">
+                            <div class="card-number">**** **** **** ${c.last4}</div>
+                            <div class="card-issuer">${c.type.toUpperCase()}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    function setActiveCard(i) { db.activeCard = i; saveDB(); renderUI(); closeScreen('cards-screen'); }
+    function addCard() {
+        db.cards.push({
+            type: document.getElementById('new-card-type').value,
+            color: document.getElementById('new-card-color').value,
+            last4: document.getElementById('new-card-last4').value || "0000",
+            cvv: document.getElementById('new-card-cvv').value || "000"
+        });
+        saveDB(); renderCards(); renderUI();
+        showCustomNotif("Carte ajoutée", "Nouvelle carte activée.");
     }
 
+    function flipCard() { document.getElementById('credit-card').classList.toggle('flipped'); if(navigator.vibrate) navigator.vibrate(30); }
     function openScreen(id) { document.getElementById(id).classList.add('active'); }
     function closeScreen(id) { document.getElementById(id).classList.remove('active'); }
+    function closeAllScreens() { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); }
 
     function saveAdminChanges() {
         db.user.firstname = document.getElementById('admin-firstname').value || db.user.firstname;
         db.user.lastname = document.getElementById('admin-lastname').value || db.user.lastname;
-        db.user.balance = parseFloat(document.getElementById('admin-balance').value) || db.user.balance;
-        db.user.cardNum = document.getElementById('admin-cardnum').value || db.user.cardNum;
-        db.user.cvv = document.getElementById('admin-cvv').value || db.user.cvv;
+        const newBal = parseFloat(document.getElementById('admin-balance').value);
+        if(!isNaN(newBal)) db.user.balance = newBal;
         saveDB(); renderUI(); applyLanguage();
-        closeScreen('admin-screen'); closeScreen('help-screen');
-        showSuccess(i18n[db.lang].apply, "Profil mis à jour");
+        showCustomNotif("Profil mis à jour", "Informations enregistrées.");
     }
 
-    function injectBalance() {
+    // The Smart Injector
+    function startBalanceSimulation() {
         const target = parseFloat(document.getElementById('admin-balance').value);
-        if(!target) { alert("Veuillez saisir un solde cible dans le champ 'Solde désiré'"); return; }
-        let current = db.user.balance;
-        let i = 0;
-        const interval = setInterval(() => {
-            if(current >= target || i > 20) { clearInterval(interval); return; }
-            const chunk = rand(100000, 800000);
-            current += chunk;
-            db.user.balance += chunk;
-            const label = incomeSources[rand(0, incomeSources.length-1)];
-            db.transactions.push({ amount: chunk, label: label, type: 'credit', date: new Date().toLocaleString() });
-            saveDB(); renderUI();
-            showCustomNotif("Virement reçu", `+${formatMoney(chunk)} - ${label}`);
-            i++;
-        }, 3000); // Toutes les 3 secondes
+        const duration = document.getElementById('inject-duration').value;
+        
+        if(isNaN(target)) { alert("Veuillez entrer un solde cible valide."); return; }
+        if(target <= db.user.balance) { alert("Le solde cible doit être supérieur au solde actuel."); return; }
+
+        const diff = target - db.user.balance;
+        const numTx = rand(5, 15); // Entre 5 et 15 transactions
+        const chunkSize = diff / numTx;
+        
+        const statusEl = document.getElementById('inject-status');
+        statusEl.innerText = `Simulation lancée : ${numTx} virements programmés.`;
+        
+        let delayMultiplier = 1;
+        if(duration === 'instant') delayMultiplier = 2000; // 2s
+        if(duration === '1h') delayMultiplier = 3600000 / numTx; // spread over 1h
+        if(duration === '1d') delayMultiplier = 86400000 / numTx; // spread over 1d
+        if(duration === '1w') delayMultiplier = 604800000 / numTx; // spread over 1w
+
+        for(let i=0; i<numTx; i++) {
+            const delay = (i + 1) * delayMultiplier + rand(1000, 5000); // Add slight randomness
+            const amount = chunkSize + rand(-chunkSize*0.2, chunkSize*0.2); // Vary amounts slightly
+            const sourceObj = incomeSources[rand(0, incomeSources.length-1)];
+            const label = sourceObj.label;
+            
+            setTimeout(() => {
+                db.user.balance += amount;
+                db.transactions.push({ amount, label, type: 'credit', date: new Date().toLocaleString() });
+                saveDB(); renderUI();
+                showCustomNotif("Virement reçu", `+${formatMoney(amount)} de ${label}`);
+                sendSystemNotification("Nouveau virement", `+${formatMoney(amount)} de ${label}`);
+            }, delay);
+        }
+        
+        closeScreen('admin-screen');
     }
 
+    // Génération avec prix réalistes
     function generateRandomTx(silent) {
         const isCredit = Math.random() > 0.4;
-        let amount, label;
-        if(isCredit) { amount = rand(50000, 5000000); label = incomeSources[rand(0, incomeSources.length-1)]; db.user.balance += amount; }
-        else { amount = rand(1500, 120000); label = luxuryBrands[rand(0, luxuryBrands.length-1)]; db.user.balance -= amount; }
+        let txObj, amount, label;
+        if(isCredit) {
+            txObj = incomeSources[rand(0, incomeSources.length-1)];
+            amount = rand(txObj.min, txObj.max);
+            label = txObj.label;
+            db.user.balance += amount;
+        } else {
+            txObj = luxuryBrands[rand(0, luxuryBrands.length-1)];
+            amount = rand(txObj.min, txObj.max);
+            label = txObj.label;
+            db.user.balance -= amount;
+        }
         db.transactions.push({ amount, label, type: isCredit ? 'credit' : 'debit', date: new Date().toLocaleString() });
-        if(!silent) { saveDB(); renderUI(); showCustomNotif(isCredit ? i18n[db.lang].notifTitle : "Dépense", `${isCredit ? '+' : '-'}${formatMoney(amount)} - ${label}`); }
     }
 
-    // Execution des transactions
+    // Payment Flow with PIN
+    let currentAction = null;
+    function initiateAction(type) {
+        currentAction = type;
+        document.getElementById('pin-modal').style.display = 'flex';
+        document.getElementById('pin-error').innerText = '';
+        resetPin();
+    }
+
+    let pinEntry = "";
+    function typePin(val) {
+        if(val === 'del') { pinEntry = pinEntry.slice(0, -1); }
+        else if(pinEntry.length < 4) { pinEntry += val; }
+        
+        let dots = document.getElementById('pin-dots').children;
+        for(let i=0; i<4; i++) { dots[i].classList.toggle('filled', i < pinEntry.length); }
+        
+        if(pinEntry.length === 4) {
+            setTimeout(() => {
+                document.getElementById('pin-modal').style.display = 'none';
+                showProcessing();
+            }, 300);
+        }
+    }
+    function resetPin() { pinEntry = ""; let dots = document.getElementById('pin-dots').children; for(let d of dots) d.classList.remove('filled'); }
+    function cancelPin() { document.getElementById('pin-modal').style.display = 'none'; resetPin(); }
+
+    function showProcessing() {
+        const modal = document.getElementById('process-modal');
+        const content = document.getElementById('process-content');
+        modal.style.display = 'flex';
+        content.innerHTML = `<div class="spinner"></div><p style="color:var(--text-dim); font-size:14px;">Traitement sécurisé...</p>`;
+        
+        setTimeout(() => {
+            if(currentAction === 'transfer') executeTransfer();
+            if(currentAction === 'pay') executePayment();
+        }, 1500);
+    }
+
     function executeTransfer() {
-        const recipient = document.getElementById('transfer-recipient').value;
-        const amount = parseFloat(document.getElementById('transfer-amount').value);
-        const reason = document.getElementById('transfer-reason').value || "Virement";
-        const fee = parseFloat(document.getElementById('transfer-fee').value);
+        const r = document.getElementById('transfer-recipient').value || "Destinataire";
+        const a = parseFloat(document.getElementById('transfer-amount').value);
+        const f = parseFloat(document.getElementById('transfer-fee').value);
+        if(!a) { cancelProcess(); return alert("Montant invalide"); }
         
-        if(!recipient || !amount) return alert("Veuillez remplir les champs");
-        
-        db.user.balance -= (amount + fee);
-        db.transactions.push({ amount: amount, label: "Virement vers " + recipient, type: 'debit', date: new Date().toLocaleString() });
-        if(fee > 0) db.transactions.push({ amount: fee, label: "Frais bancaires", type: 'debit', date: new Date().toLocaleString() });
-        
-        saveDB(); renderUI();
-        closeScreen('transfer-screen');
-        showSuccess(i18n[db.lang].successTransfer, `${formatMoney(amount)} envoyé à ${recipient}`);
+        db.user.balance -= (a + f);
+        db.transactions.push({ amount: a, label: "Virement vers " + r, type: 'debit', date: new Date().toLocaleString() });
+        if(f>0) db.transactions.push({ amount: f, label: "Frais bancaires", type: 'debit', date: new Date().toLocaleString() });
+        saveDB(); renderUI(); closeScreen('transfer-screen');
+        showSuccess("Virement validé", `${formatMoney(a)} envoyés.`);
     }
 
     function executePayment() {
-        let merchant = document.getElementById('pay-merchant').value;
-        if(merchant === "Custom") merchant = document.getElementById('pay-merchant-custom').value;
-        const amount = parseFloat(document.getElementById('pay-amount').value);
+        let m = document.getElementById('pay-merchant').value;
+        if(m === 'Custom') m = document.getElementById('pay-merchant-custom').value || "Commerçant";
+        const a = parseFloat(document.getElementById('pay-amount').value);
+        if(!a) { cancelProcess(); return alert("Montant invalide"); }
         
-        if(!amount) return alert("Veuillez saisir un montant");
-        
-        db.user.balance -= amount;
-        db.transactions.push({ amount: amount, label: "Achat " + merchant, type: 'debit', date: new Date().toLocaleString() });
-        
-        saveDB(); renderUI();
-        closeScreen('pay-screen');
-        showSuccess(i18n[db.lang].successPay, `${formatMoney(amount)} dépensé chez ${merchant}`);
+        db.user.balance -= a;
+        db.transactions.push({ amount: a, label: "Achat " + m, type: 'debit', date: new Date().toLocaleString() });
+        saveDB(); renderUI(); closeScreen('pay-screen');
+        showSuccess("Paiement accepté", `${formatMoney(a)} dépensés chez ${m}.`);
     }
 
-    // Success & Notifications
     function showSuccess(title, text) {
-        document.getElementById('success-title').innerText = title;
-        document.getElementById('success-text').innerText = text;
-        document.getElementById('success-modal').style.display = 'flex';
-        if(navigator.vibrate) navigator.vibrate(50);
+        const content = document.getElementById('process-content');
+        content.innerHTML = `<div class="success-check">✓</div><h3>${title}</h3><p style="color:var(--text-dim); font-size:14px;">${text}</p>`;
+        setTimeout(() => { document.getElementById('process-modal').style.display = 'none'; }, 2500);
     }
-    function closeSuccess() { document.getElementById('success-modal').style.display = 'none'; }
+    function cancelProcess() { document.getElementById('process-modal').style.display = 'none'; }
 
+    // Notifications
     function showCustomNotif(title, body) {
         document.getElementById('notif-title').innerText = title;
         document.getElementById('notif-body').innerText = body;
-        const notif = document.getElementById('notif-container');
-        notif.classList.add('show');
+        const n = document.getElementById('notif-container');
+        n.classList.add('show');
         if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
-        clearTimeout(window.notifTimer);
-        window.notifTimer = setTimeout(hideNotif, 5000);
+        clearTimeout(window.nt);
+        window.nt = setTimeout(hideNotif, 5000);
     }
     function hideNotif() { document.getElementById('notif-container').classList.remove('show'); }
 
     function enableSystemNotifications() {
-        if (!("Notification" in window)) return alert("Notifications non supportées");
-        Notification.requestPermission().then(p => {
-            if (p === 'granted') { new Notification("Swiss Premium", { body: "Notifications activées" }); }
-        });
+        if (!("Notification" in window)) return alert("Non supporté");
+        Notification.requestPermission().then(p => { if (p === 'granted') new Notification("Banking", { body: "Activé" }); });
     }
-    function sendSystemNotification(title, body) {
-        if ("Notification" in window && Notification.permission === 'granted') { new Notification(title, { body: body }); }
-    }
+    function sendSystemNotification(title, body) { if ("Notification" in window && Notification.permission === 'granted') new Notification(title, { body }); }
 
     // Scheduler
-    document.getElementById('sched-sender').addEventListener('change', (e) => {
-        document.getElementById('sched-sender-custom').style.display = e.target.value === 'Custom' ? 'block' : 'none';
-    });
-    document.getElementById('pay-merchant').addEventListener('change', (e) => {
-        document.getElementById('pay-merchant-custom').style.display = e.target.value === 'Custom' ? 'block' : 'none';
-    });
-
     function scheduleNotification() {
-        let sender = document.getElementById('sched-sender').value;
-        if(sender === 'Custom') sender = document.getElementById('sched-sender-custom').value || "Anonyme";
-        
+        const sender = document.getElementById('sched-sender').value || "Anonyme";
         const type = document.getElementById('sched-type').value;
         const amount = parseFloat(document.getElementById('sched-amount').value);
         const delay = parseInt(document.getElementById('sched-delay').value);
+        if(!amount) return alert("Montant requis");
         
-        if(!amount) return alert("Veuillez saisir un montant");
-        
-        db.scenarios.push({ sender, type, amount, delay });
-        saveDB();
-        
-        alert(`Programmé ! Vous recevrez cette notification dans ${delay} secondes.`);
+        alert(`Programmé ! Notification dans ${delay} secondes.`);
         closeScreen('admin-screen');
         
         setTimeout(() => {
@@ -597,75 +710,33 @@
             } else {
                 db.user.balance -= amount;
                 db.transactions.push({ amount, label: "Achat " + sender, type: 'debit', date: new Date().toLocaleString() });
-                showCustomNotif("Paiement effectué", `-${formatMoney(amount)} chez ${sender}`);
-                sendSystemNotification("Paiement effectué", `-${formatMoney(amount)} chez ${sender}`);
+                showCustomNotif("Paiement", `-${formatMoney(amount)} chez ${sender}`);
+                sendSystemNotification("Paiement", `-${formatMoney(amount)} chez ${sender}`);
             }
             saveDB(); renderUI();
         }, delay * 1000);
     }
 
+    // Chat
     function sendChat() {
-        const input = document.getElementById('chat-input');
-        if(input.value.trim() === '') return;
-        const chatArea = document.getElementById('chat-area');
-        chatArea.innerHTML += `<div class="msg-bubble msg-sent">${input.value}</div>`;
-        input.value = '';
-        chatArea.scrollTop = chatArea.scrollHeight;
+        const i = document.getElementById('chat-input');
+        if(i.value.trim() === '') return;
+        const c = document.getElementById('chat-area');
+        c.innerHTML += `<div class="msg-bubble msg-sent">${i.value}</div>`;
+        i.value = ''; c.scrollTop = c.scrollHeight;
         setTimeout(() => {
-            const r = ["C'est noté. Je m'occupe de votre portefeuille.", "Le transfert vers les Cayman est validé.", "Dois-je bloquer les intérêts pour le nouvel avion ?", "Accès conciergerie spatiale débloqué."];
-            chatArea.innerHTML += `<div class="msg-bubble msg-received">${r[rand(0, r.length-1)]}</div>`;
-            chatArea.scrollTop = chatArea.scrollHeight;
+            const r = ["C'est noté.", "Je m'occupe du transfert.", "Dois-je bloquer les intérêts ?", "Accès conciergerie débloqué."];
+            c.innerHTML += `<div class="msg-bubble msg-received">${r[rand(0, r.length-1)]}</div>`; c.scrollTop = c.scrollHeight;
         }, 1500);
     }
 
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => showCustomNotif("Copié", "IBAN copié dans le presse-papier"));
-    }
+    // Utils
+    function copyToClipboard(t) { navigator.clipboard.writeText(t).then(() => showCustomNotif("Copié", "IBAN copié.")); }
+    function resetApp() { localStorage.removeItem('prankBankV4_1'); location.reload(); }
 
-    function toggleFreeze() {
-        if(navigator.vibrate) navigator.vibrate(200);
-        alert("Carte bloquée temporairement (Simulation).");
-    }
-
-    // File Injection
-    const dropZone = document.getElementById('file-drop-zone');
-    const fileInput = document.getElementById('file-input');
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--gold)'; });
-    dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = '#555'; });
-    dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.style.borderColor = '#555'; handleFile(e.dataTransfer.files[0]); });
-    fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
-
-    function handleFile(file) {
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const lines = e.target.result.split('\n');
-            lines.forEach(line => {
-                const parts = line.trim().split('|');
-                if(parts.length === 4) {
-                    const [amountStr, label, type, delayStr] = parts;
-                    const amount = parseFloat(amountStr.replace(',', '.'));
-                    const delay = parseInt(delayStr);
-                    if(!isNaN(amount) && !isNaN(delay)) {
-                        db.scenarios.push({ amount, label, type: type.trim(), delay });
-                        setTimeout(() => {
-                            if(type.trim() === 'credit') db.user.balance += amount;
-                            else db.user.balance -= amount;
-                            db.transactions.push({ amount, label, type: type.trim(), date: new Date().toLocaleString() });
-                            saveDB(); renderUI();
-                            showCustomNotif("Notification", `${type.trim() === 'credit' ? '+' : '-'}${formatMoney(amount)} - ${label}`);
-                        }, delay * 1000);
-                    }
-                }
-            });
-            dropZone.innerText = "Scénarios chargés !";
-            saveDB();
-        };
-        reader.readAsText(file);
-    }
-
-    function resetApp() { localStorage.removeItem('prankBankDB_V3'); location.reload(); }
+    document.getElementById('pay-merchant').addEventListener('change', (e) => {
+        document.getElementById('pay-merchant-custom').style.display = e.target.value === 'Custom' ? 'block' : 'none';
+    });
 
     initApp();
 </script>
